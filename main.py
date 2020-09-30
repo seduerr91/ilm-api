@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from infill import INFILL
 
-
 class Message(BaseModel):
     input: str
     output: str = None
@@ -26,13 +25,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello": "Javier"}
 
+@app.post("/infill_sentence/")
+async def infill_sentence(message: Message):
+    message.output = str(infill.infilling_sentence(message.input))
+    return {"output": message.output}
 
-@app.post("/infill/")
-async def fill_blank(message: Message):
-    message.output = str(infill.infilling(message.input))
+@app.post("/infill_word/")
+async def infill_word(message: Message):
+    message.output = str(infill.infilling_word(message.input))
+    return {"output": message.output}
+
+@app.post("/infill_ngram/")
+async def infill_ngram(message: Message):
+    message.output = str(infill.infilling_ngram(message.input))
     return {"output": message.output}

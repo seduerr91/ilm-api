@@ -25,7 +25,7 @@ context = 'The sun is shining. _ All the children want to swim.'
 
 
 class INFILL:
-    def infilling(self, context: str):
+    def infilling_sentence(self, context: str):
         with open(os.path.join(MODEL_DIR, 'additional_ids_to_tokens.pkl'), 'rb') as f:
             additional_ids_to_tokens = pickle.load(f)
         additional_tokens_to_ids = {v: k for k, v in additional_ids_to_tokens.items()}
@@ -41,6 +41,7 @@ class INFILL:
         _ = model.to(device)
         context_ids = ilm.tokenize_util.encode(context, tokenizer)
         _blank_id = ilm.tokenize_util.encode(' _', tokenizer)[0]
+        # Infilling type: One of sentence, document, mixture, paragraph, ngram, or word
         context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_sentence|>']
 
         generated = infill_with_ilm(
@@ -49,8 +50,61 @@ class INFILL:
             context_ids,
             num_infills=5)
         for g in generated:
-            # print('-' * 80)
-            # print(ilm.tokenize_util.decode(g, tokenizer))
             result.append(str(ilm.tokenize_util.decode(g, tokenizer)))
-        print(result)
+        return result
+
+    def infilling_word(self, context: str):
+        with open(os.path.join(MODEL_DIR, 'additional_ids_to_tokens.pkl'), 'rb') as f:
+            additional_ids_to_tokens = pickle.load(f)
+        additional_tokens_to_ids = {v: k for k, v in additional_ids_to_tokens.items()}
+        try:
+            ilm.tokenize_util.update_tokenizer(additional_ids_to_tokens, tokenizer)
+        except ValueError:
+            print('Already updated')
+
+        # Load model
+        device = 'cpu'
+        model = GPT2LMHeadModel.from_pretrained(MODEL_DIR)
+        model.eval()
+        _ = model.to(device)
+        context_ids = ilm.tokenize_util.encode(context, tokenizer)
+        _blank_id = ilm.tokenize_util.encode(' >', tokenizer)[0]
+        # Infilling type: One of sentence, document, mixture, paragraph, ngram, or word
+        context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_word|>']
+
+        generated = infill_with_ilm(
+            model,
+            additional_tokens_to_ids,
+            context_ids,
+            num_infills=5)
+        for g in generated:
+            result.append(str(ilm.tokenize_util.decode(g, tokenizer)))
+        return result
+
+    def infilling_ngram(self, context: str):
+        with open(os.path.join(MODEL_DIR, 'additional_ids_to_tokens.pkl'), 'rb') as f:
+            additional_ids_to_tokens = pickle.load(f)
+        additional_tokens_to_ids = {v: k for k, v in additional_ids_to_tokens.items()}
+        try:
+            ilm.tokenize_util.update_tokenizer(additional_ids_to_tokens, tokenizer)
+        except ValueError:
+            print('Already updated')
+
+        # Load model
+        device = 'cpu'
+        model = GPT2LMHeadModel.from_pretrained(MODEL_DIR)
+        model.eval()
+        _ = model.to(device)
+        context_ids = ilm.tokenize_util.encode(context, tokenizer)
+        _blank_id = ilm.tokenize_util.encode(' <', tokenizer)[0]
+        # Infilling type: One of sentence, document, mixture, paragraph, ngram, or word
+        context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_ngram|>']
+
+        generated = infill_with_ilm(
+            model,
+            additional_tokens_to_ids,
+            context_ids,
+            num_infills=5)
+        for g in generated:
+            result.append(str(ilm.tokenize_util.decode(g, tokenizer)))
         return result

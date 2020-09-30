@@ -112,6 +112,6 @@ def infill_with_ilm(
     for i, j in enumerate(blank_idxs[::-1]):
       del context[j]
       context[j:j] = spans[k - 1 - i]
-    generated.append(context)
-
+    spans = [item for sublist in spans for item in sublist]
+    generated.append(spans)
   return generated
