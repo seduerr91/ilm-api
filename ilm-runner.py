@@ -35,8 +35,8 @@ _ = model.to(device)
 
 # Create context
 context = """
-Math Class
-Chris was bad at math. _ He ended up passing the test.
+Interview
+Chris has a job interview today. _ He ended up landing the job.
 """.strip()
 
 context_ids = ilm.tokenize_util.encode(context, tokenizer)
