@@ -1,0 +1,9 @@
+# installed with apt
+git
+pip
+
+# installed with pip
+regex
+transformers
+torch
+gdown
