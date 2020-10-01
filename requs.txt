@@ -2,8 +2,20 @@
 git
 pip
 
-# installed with pip
+# install to run the ilm-runner
 regex
 transformers
 torch
 gdown
+
+# install to host FASTAPI
+uvicorn
+
+# Added uvicorn to the path via
+export PATH=$PATH:$HOME/.local/bin
+
+# installed next
+FastAPI
+gunicorn
+uvloop
+httptools
