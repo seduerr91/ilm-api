@@ -43,6 +43,9 @@ context_ids = ilm.tokenize_util.encode(context, tokenizer)
 _blank_id = ilm.tokenize_util.encode(' _', tokenizer)[0]
 context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_sentence|>']
 
+print('The context was: ')
+print(context)
+
 generated = infill_with_ilm(
     model,
     additional_tokens_to_ids,
