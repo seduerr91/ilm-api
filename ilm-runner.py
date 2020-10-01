@@ -36,15 +36,16 @@ _ = model.to(device)
 # Create context
 context = """
 Interview
-Chris has a job interview today. _ He ended up landing the job.
+Chris had a job interview today. _ He ended up landing the job.
 """.strip()
 
 context_ids = ilm.tokenize_util.encode(context, tokenizer)
 _blank_id = ilm.tokenize_util.encode(' _', tokenizer)[0]
 context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_sentence|>']
 
-print('The context was: ')
+print('\n\nThe context was: \n')
 print(context)
+print('\nThe deep neural network generated: \n')
 
 generated = infill_with_ilm(
     model,
@@ -54,3 +55,5 @@ generated = infill_with_ilm(
 for g in generated:
     print('-' * 80)
     print(ilm.tokenize_util.decode(g, tokenizer))
+
+print('\n\n')
