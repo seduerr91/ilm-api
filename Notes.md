@@ -21,3 +21,6 @@ gcloud app deploy app.yaml
 
 <!-- Get the link to the API -->
 gcloud app browse
+
+<!-- Get logs -->
+gcloud app logs tail -s default
