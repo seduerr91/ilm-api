@@ -24,3 +24,7 @@ gcloud app browse
 
 <!-- Get logs -->
 gcloud app logs tail -s default
+
+
+<!-- Entrypoint changed -->
+entrypoint: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
