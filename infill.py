@@ -26,6 +26,7 @@ context = 'The sun is shining. _ All the children want to swim.'
 
 class INFILL:
     def infilling_sentence(self, context: str):
+        result.clear()
         with open(os.path.join(MODEL_DIR, 'additional_ids_to_tokens.pkl'), 'rb') as f:
             additional_ids_to_tokens = pickle.load(f)
         additional_tokens_to_ids = {v: k for k, v in additional_ids_to_tokens.items()}
@@ -54,6 +55,7 @@ class INFILL:
         return result
 
     def infilling_word(self, context: str):
+        result.clear()
         with open(os.path.join(MODEL_DIR, 'additional_ids_to_tokens.pkl'), 'rb') as f:
             additional_ids_to_tokens = pickle.load(f)
         additional_tokens_to_ids = {v: k for k, v in additional_ids_to_tokens.items()}
@@ -68,7 +70,7 @@ class INFILL:
         model.eval()
         _ = model.to(device)
         context_ids = ilm.tokenize_util.encode(context, tokenizer)
-        _blank_id = ilm.tokenize_util.encode(' >', tokenizer)[0]
+        _blank_id = ilm.tokenize_util.encode(' _', tokenizer)[0]
         # Infilling type: One of sentence, document, mixture, paragraph, ngram, or word
         context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_word|>']
 
@@ -82,6 +84,7 @@ class INFILL:
         return result
 
     def infilling_ngram(self, context: str):
+        result.clear()
         with open(os.path.join(MODEL_DIR, 'additional_ids_to_tokens.pkl'), 'rb') as f:
             additional_ids_to_tokens = pickle.load(f)
         additional_tokens_to_ids = {v: k for k, v in additional_ids_to_tokens.items()}
@@ -96,7 +99,7 @@ class INFILL:
         model.eval()
         _ = model.to(device)
         context_ids = ilm.tokenize_util.encode(context, tokenizer)
-        _blank_id = ilm.tokenize_util.encode(' <', tokenizer)[0]
+        _blank_id = ilm.tokenize_util.encode(' _', tokenizer)[0]
         # Infilling type: One of sentence, document, mixture, paragraph, ngram, or word
         context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_ngram|>']
 

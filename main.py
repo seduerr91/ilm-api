@@ -34,12 +34,12 @@ async def infill_sentence(message: Message):
     message.output = str(infill.infilling_sentence(message.input))
     return {"output": message.output}
 
-# @app.post("/infill_word/")
-# async def infill_word(message: Message):
-#     message.output = str(infill.infilling_word(message.input))
-#     return {"output": message.output}
+@app.post("/infill_word/")
+async def infill_word(message: Message):
+    message.output = str(infill.infilling_word(message.input))
+    return {"output": message.output}
 
-# @app.post("/infill_ngram/")
-# async def infill_ngram(message: Message):
-#     message.output = str(infill.infilling_ngram(message.input))
-#     return {"output": message.output}
+@app.post("/infill_ngram/")
+async def infill_ngram(message: Message):
+    message.output = str(infill.infilling_ngram(message.input))
+    return {"output": message.output}
