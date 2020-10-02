@@ -1,4 +1,4 @@
-Notes.md 
+Notes to Push new Data.md 
 
 <!-- Connect to Server via Cloud Shell: -->
 gcloud alpha cloud-shell ssh
@@ -12,3 +12,12 @@ gcloud config set project ilmapi
 
 <!-- Shell Cloud SSH Password  -->
 sls****1
+
+<!-- Update Server -->
+git pull
+
+<!-- Reload Server with new features -->
+gcloud app deploy app.yaml
+
+<!-- Get the link to the API -->
+gcloud app browse
