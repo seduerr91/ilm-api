@@ -1,5 +1,5 @@
 import copy
-
+import itertools
 import torch
 import torch.nn.functional as F
 
@@ -113,5 +113,8 @@ def infill_with_ilm(
       del context[j]
       context[j:j] = spans[k - 1 - i]
     spans = [item for sublist in spans for item in sublist]
-    generated.append(spans)
+    if spans not in generated:
+      generated.append(spans)
+    else: 
+      pass
   return generated

@@ -43,9 +43,15 @@ Interview
 Chris had a job interview today. _ He ended up landing the job.
 """.strip()
 
+# context = """
+# Chris had a _. He ended up enjoying it a lot.
+# """.strip()
+
+
 context_ids = ilm.tokenize_util.encode(context, tokenizer)
 _blank_id = ilm.tokenize_util.encode(' _', tokenizer)[0]
 context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_sentence|>']
+# context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_word|>']
 
 now = datetime.now()
 start_time = now.strftime("%H:%M:%S")
@@ -57,17 +63,17 @@ generated = infill_with_ilm(
     model,
     additional_tokens_to_ids,
     context_ids,
-    num_infills=5)
+    num_infills=20)
 for g in generated:
     print('-' * 80)
     print(ilm.tokenize_util.decode(g, tokenizer))
 
 print('\n\n')
 
-then = datetime.now()
-end_time = then.strftime("%H:%M:%S")
-print("The n was: 20")
-print("Time at start was: ", start_time)
-print("Time at end was: ", end_time)
-diff_time = then - now
-print("The total time was: ", diff_time)
+# then = datetime.now()
+# end_time = then.strftime("%H:%M:%S")
+# print("The n was: 20")
+# print("Time at start was: ", start_time)
+# print("Time at end was: ", end_time)
+# diff_time = then - now
+# print("The total time was: ", diff_time)
