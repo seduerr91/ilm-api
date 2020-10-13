@@ -1,5 +1,8 @@
 model/pytorch_model.bin
-__pycache__
-.vscode
+__pycache__/
+.vscode/
 .gitignore
 .Notes.md
+.train/
+.wandb/
+ilm/data/

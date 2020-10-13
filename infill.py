@@ -78,7 +78,7 @@ class INFILL:
             model,
             additional_tokens_to_ids,
             context_ids,
-            num_infills=5)
+            num_infills=10)
         for g in generated:
             result.append(str(ilm.tokenize_util.decode(g, tokenizer)))
         return result
@@ -107,7 +107,7 @@ class INFILL:
             model,
             additional_tokens_to_ids,
             context_ids,
-            num_infills=5)
+            num_infills=10)
         for g in generated:
             result.append(str(ilm.tokenize_util.decode(g, tokenizer)))
         return result

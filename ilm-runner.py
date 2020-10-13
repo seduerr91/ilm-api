@@ -6,6 +6,10 @@ import torch
 from transformers import GPT2LMHeadModel
 from ilm.infer import infill_with_ilm
 import gdown
+
+from datetime import datetime
+from datetime import timedelta
+
 # Variables
 MODEL_DIR = 'model/'
 MASK_CLS = 'ilm.mask.hierarchical.MaskHierarchical'
@@ -43,6 +47,8 @@ context_ids = ilm.tokenize_util.encode(context, tokenizer)
 _blank_id = ilm.tokenize_util.encode(' _', tokenizer)[0]
 context_ids[context_ids.index(_blank_id)] = additional_tokens_to_ids['<|infill_sentence|>']
 
+now = datetime.now()
+start_time = now.strftime("%H:%M:%S")
 print('\n\nThe context was: \n')
 print(context)
 print('\nThe deep neural network generated: \n')
@@ -57,3 +63,11 @@ for g in generated:
     print(ilm.tokenize_util.decode(g, tokenizer))
 
 print('\n\n')
+
+then = datetime.now()
+end_time = then.strftime("%H:%M:%S")
+print("The n was: 20")
+print("Time at start was: ", start_time)
+print("Time at end was: ", end_time)
+diff_time = then - now
+print("The total time was: ", diff_time)
