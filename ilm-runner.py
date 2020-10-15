@@ -15,7 +15,9 @@ MODEL_DIR = 'model/'
 MASK_CLS = 'ilm.mask.hierarchical.MaskHierarchical'
 
 datamodel = 'model/pytorch_model.bin'
+# standard model
 model_location = "https://drive.google.com/uc?id=1-12EFaKNBYD1vlfeZcKnV5PaSqeHNTHX"
+
 if os.path.isfile(datamodel):
     ('Model was already downloaded.')
 else:
