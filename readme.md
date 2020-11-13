@@ -6,6 +6,8 @@ color: warniing
 description: BERT masking does not allow to infill multiple words into a sentence context. Researchers from Stanford addressed this. I made it available through an API.
 ---
 
+![demo](demo.gif)
+
 This repository houses the code for the Infilling Language Model (ILM) framework outlined in the ACL 2020 paper [Enabling language models to fill in the blanks](https://arxiv.org/abs/2005.05339) (Donahue et al. 2020).
 
 ![Imgur](https://i.imgur.com/Qh0FFjN.png)
